@@ -28,7 +28,7 @@ public class EventService {
     private final SubscriptionRepository subscriptionRepository;
 
     public Event createEvent(EventRequestDTO dto) {
-        Event newEvent = new Event(dto);
+        Event newEvent = new Event(); // passar o dto aqui dentro
         repository.save(newEvent);
         return null;
     }

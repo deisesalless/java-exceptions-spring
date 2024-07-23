@@ -1,5 +1,7 @@
-package br.com.deisesales.events.exceptions;
+package br.com.deisesales.events.infra;
 
+import br.com.deisesales.events.exceptions.EventFullException;
+import br.com.deisesales.events.exceptions.EventNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -10,12 +12,14 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(EventNotFoundException.class)
-    private ResponseEntity<String> eventNotFoundHandler(EventNotFoundException exception) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Evento não encontrado");
+    private ResponseEntity<RestErrorMessage> eventNotFoundHandler(EventNotFoundException exception) {
+        RestErrorMessage restErrorMessage = new RestErrorMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(restErrorMessage);
     }
 
     @ExceptionHandler(EventFullException.class)
-    private ResponseEntity<String> eventFullErrorHandler(EventFullException exception) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Evento está lotado");
+    private ResponseEntity<RestErrorMessage> eventFullErrorHandler(EventFullException exception) {
+        RestErrorMessage restErrorMessage = new RestErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(restErrorMessage);
     }
 }
