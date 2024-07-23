@@ -23,7 +23,7 @@ public class EventRepository {
         return null;
     }
 
-    public List<Event> UpcommingEvents(LocalDateTime time) {
+    public List<Event> getUpcommingEvents(LocalDateTime time) {
         return null;
     }
 }

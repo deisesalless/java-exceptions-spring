@@ -7,11 +7,14 @@ import br.com.deisesales.events.entity.Subscription;
 import br.com.deisesales.events.exceptions.EventFullException;
 import br.com.deisesales.events.exceptions.EventNotFoundException;
 import br.com.deisesales.events.repository.EventRepository;
+import br.com.deisesales.events.repository.SubscriptionRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -22,26 +25,24 @@ public class EventService {
 
     private final EventRepository repository;
     private final EmailServiceClient emailServiceClient;
+    private final SubscriptionRepository subscriptionRepository;
 
     public Event createEvent(EventRequestDTO dto) {
-//        Event newEvent = Event(dto);
-//        repository.save(newEvent);
+        Event newEvent = new Event(dto);
+        repository.save(newEvent);
         return null;
     }
 
     public List<Event> getAllEvents() {
-         repository.findAll();
-        return null;
+        return repository.findAll();
     }
 
     public List<Event> getUpcommingEvents() {
-//         repository.getUpcommingEvents(LocalDateTime.now());
-        return null;
+        return repository.getUpcommingEvents(LocalDateTime.now());
     }
 
     private Boolean isEventFull(Event event) {
-//        return event.getRegisteredParticipants() >= event.getMaxParticipants();
-        return null;
+        return event.getRegisteredParticipants() >= event.getMaxParticipants();
     }
 
     public void registerParticipant(String eventId, String participantEmail) {
@@ -51,8 +52,8 @@ public class EventService {
             throw new EventFullException();
         }
 
-        //Subscription subscription = new Subscription(event, participantEmail);
-        //subscriptionRepository.save(subscription);
+        Subscription subscription = new Subscription(event, participantEmail);
+        subscriptionRepository.save(subscription);
 
         event.setRegisteredParticipants(event.getRegisteredParticipants() + 1);
 

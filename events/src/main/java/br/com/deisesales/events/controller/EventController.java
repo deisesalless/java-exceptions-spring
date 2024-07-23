@@ -5,6 +5,7 @@ import br.com.deisesales.events.dto.SubscriptionRequestDTO;
 import br.com.deisesales.events.entity.Event;
 import br.com.deisesales.events.service.EventService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +38,7 @@ public class EventController {
 
     @PostMapping("/{eventId}/register")
     public ResponseEntity<String> registerParticipant(@PathVariable String eventId, @RequestBody SubscriptionRequestDTO dto) {
-        return null;
+        service.registerParticipant(eventId, dto.getParticipantEmail());
+        return ResponseEntity.status(HttpStatus.OK).body("Evento criado com sucesso");
     }
 }

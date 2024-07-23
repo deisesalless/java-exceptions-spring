@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class Event {
 
     private Integer registeredParticipants;
+    private Integer maxParticipants;
 }
