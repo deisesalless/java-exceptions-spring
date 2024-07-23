@@ -25,8 +25,8 @@ public class EventService {
         return null;
     }
 
-    public List<Event> getUpCommingEvents() {
-        // repository.getUpCommingEvents;
+    public List<Event> getUpcommingEvents() {
+        // repository.getUpcommingEvents;
         return null;
     }
 }
