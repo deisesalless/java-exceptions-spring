@@ -1,13 +1,12 @@
 package br.com.deisesales.events.controller;
 
+import br.com.deisesales.events.dto.EventRequestDTO;
+import br.com.deisesales.events.dto.SubscriptionRequestDTO;
 import br.com.deisesales.events.entity.Event;
 import br.com.deisesales.events.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,25 +18,25 @@ public class EventController {
     private final EventService service;
 
     @PostMapping
-    public Event createEvent() {
-        // service.createEvent;
+    public Event createEvent(@RequestBody EventRequestDTO dto) {
+         service.createEvent(dto);
         return null;
     }
 
     @GetMapping
     public List<Event> getAllEvents() {
-        // service.getAllEvents;
+         service.getAllEvents();
         return null;
     }
 
     @GetMapping("/upcoming")
     public List<Event> getUpcommingEvents() {
-        // service.getUpcommingEvents;
+         service.getUpcommingEvents();
         return null;
     }
 
     @PostMapping("/{eventId}/register")
-    public ResponseEntity<String> registerParticipant(String eventId) {
+    public ResponseEntity<String> registerParticipant(@PathVariable String eventId, @RequestBody SubscriptionRequestDTO dto) {
         return null;
     }
 }
